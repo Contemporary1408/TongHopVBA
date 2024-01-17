@@ -3,7 +3,7 @@ Private Sub UserForm_Initialize()
 'Empty all other text box fields
    txtname.Value = ""
    txtdept.Value = ""
- *Tham khao: https://www.tutorialspoint.com/vba/vba_userforms.htm  
+ 'Tham khao: https://www.tutorialspoint.com/vba/vba_userforms.htm  
 End Sub
 '***************************
 Private Sub btnsubmit_Click()
