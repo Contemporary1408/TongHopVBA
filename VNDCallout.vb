@@ -1,0 +1,125 @@
+Function UnicodeChar(UniCharCode As String) As String
+On Error GoTo Loi
+Dim str
+Dim desStr As String
+Dim I
+If Mid(UniCharCode, 1, 1) = ";" Then
+UniCharCode = Mid(UniCharCode, 2)
+End If
+If Right(UniCharCode, 1) = ";" Then
+UniCharCode = Mid(UniCharCode, 1, Len(UniCharCode) - 1)
+End If
+str = UniCharCode
+str = Split(str, ";")
+For I = LBound(str) To UBound(str)
+desStr = desStr & ChrW$("&H" & str(I))
+Next
+UnicodeChar = desStr
+Loi:
+Exit Function
+End Function
+
+Function vnd(ByVal NumCurrency As Currency) As String
+Static CharVND(9) As String, BangChu As String, I As Integer
+Dim SoLe, SoDoi As Integer, PhanChan, Ten As String
+Dim DonViTien As String, DonViLe As String
+Dim NganTy As Integer, Ty As Integer, Trieu As Integer, Ngan As Integer
+Dim Dong As Integer, Tram As Integer, Muoi As Integer, DonVi As Integer
+DonViTien = ";111;1ED3;6E;67" ' d?ng
+DonViLe = ";78;75" ' xu
+If NumCurrency = 0 Then
+vnd = UnicodeChar(";4B;68;F4;6E;67;20" & DonViTien)
+Exit Function
+End If
+If NumCurrency > 922337203685477# Then ' S? l?n nh?t c?a l?i CURRENCY
+vnd = UnicodeChar(";4B;68;F4;6E;67;20;111;1ED5;69;20;111;1B0;1EE3;63;20;73" & _
+";1ED1;20;6C;1EDB;6E;20;68;1A1;6E;20;39;32;32;2C;33;33;37" & _
+";2C;32;30;33;2C;36;38;35;2C;34;37;37")
+Exit Function
+End If
+CharVND(1) = ";6D;1ED9;74" ' mot
+CharVND(2) = ";68;61;69" ' hai
+CharVND(3) = ";62;61" ' ba
+CharVND(4) = ";62;1ED1;6E" ' bon
+CharVND(5) = ";6E;103;6D" ' nam
+CharVND(6) = ";73;E1;75" ' sau
+CharVND(7) = ";62;1EA3;79" ' bay
+CharVND(8) = ";74;E1;6D" ' tam
+CharVND(9) = ";63;68;ED;6E" ' chin
+SoLe = Int((NumCurrency - Int(NumCurrency)) * 100)
+PhanChan = Trim$(str$(Int(NumCurrency)))
+PhanChan = Space(15 - Len(PhanChan)) + PhanChan
+NganTy = Val(Left(PhanChan, 3))
+Ty = Val(Mid$(PhanChan, 4, 3))
+Trieu = Val(Mid$(PhanChan, 7, 3))
+Ngan = Val(Mid$(PhanChan, 10, 3))
+Dong = Val(Mid$(PhanChan, 13, 3))
+If NganTy = 0 And Ty = 0 And Trieu = 0 And Ngan = 0 And Dong = 0 Then
+BangChu = ";6B;68;F4;6E;67;20" + DonViTien + ";20"
+I = 5
+Else
+BangChu = ""
+I = 0
+End If
+'-----------------------------------------------------
+' Code chay tu day
+'-----------------------------------------------------
+While I <= 5
+Select Case I
+Case 0
+SoDoi = NganTy
+Ten = ";6E;67;E0;6E;20;74;1EF7" ' ngan ty
+Case 1
+SoDoi = Ty
+Ten = ";74;1EF7" ' ty
+Case 2
+SoDoi = Trieu
+Ten = ";74;72;69;1EC7;75" ' trieu
+Case 3
+SoDoi = Ngan
+Ten = ";6E;67;E0;6E" ' ngan
+Case 4
+SoDoi = Dong
+Ten = DonViTien ' dong
+Case 5
+SoDoi = SoLe
+Ten = DonViLe ' xu
+End Select
+If SoDoi <> 0 Then
+Tram = Int(SoDoi / 100)
+Muoi = Int((SoDoi - Tram * 100) / 10)
+DonVi = (SoDoi - Tram * 100) - Muoi * 10
+If Right(BangChu, 3) = ";20" Then
+BangChu = Left(BangChu, Len(BangChu) - 3)
+End If
+BangChu = BangChu + IIf(Len(BangChu) = 0, "", ";2C;20") + _
+IIf(Tram <> 0, Trim(CharVND(Tram)) + ";20;74;72;103;6D;20", "")
+If Muoi = 0 And Tram <> 0 And DonVi <> 0 Then
+BangChu = BangChu + ";6C;1EBB;20"
+Else
+If Muoi <> 0 Then
+BangChu = BangChu + IIf(Muoi <> 0 And Muoi <> 1, _
+Trim(CharVND(Muoi)) + ";20;6D;1B0;1A1;69;20", ";6D;1B0;1EDD;69;20")
+End If
+End If
+If Muoi <> 0 And DonVi = 5 Then
+BangChu = BangChu + ";6C;103;6D;20" + Ten + ";20"
+Else
+If Muoi > 1 And DonVi = 1 Then
+BangChu = BangChu + ";6D;1ED1;74;20" + Ten + ";20"
+Else
+BangChu = BangChu + IIf(DonVi <> 0, Trim(CharVND(DonVi)) + ";20" + Ten, Ten) + ";20"
+End If
+End If
+Else
+BangChu = BangChu + IIf(I = 4, DonViTien + "", "")
+End If
+I = I + 1
+Wend
+If SoLe = 0 Then
+BangChu = BangChu + IIf(Right(BangChu, 3) = ";20", "", ";20") + ";63;68;1EB5;6E"
+End If
+BangChu = UnicodeChar(BangChu)
+Mid$(BangChu, 1, 1) = UCase$(Mid$(BangChu, 1, 1))
+vnd = BangChu
+End Function
