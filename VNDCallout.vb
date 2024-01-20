@@ -1,4 +1,5 @@
 Function UnicodeChar(UniCharCode As String) As String
+  'Luu y dat toan bo code nay vao Module
 On Error GoTo Loi
 Dim str
 Dim desStr As String
