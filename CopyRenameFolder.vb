@@ -49,3 +49,8 @@ Private Sub btnng_Click()
    Unload Me
 End Sub
 '*********************
+Sub ShowUserForm()
+'Trigger hien thi button
+UserForm1.Show
+
+End Sub
