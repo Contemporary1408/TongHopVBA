@@ -1,4 +1,5 @@
 Sub SendMail()
+'Tham khao:https://www.automateexcel.com/vba/send-emails-outlook/
    Dim strTo As String
    Dim strSubject As String
    Dim strBody As String
