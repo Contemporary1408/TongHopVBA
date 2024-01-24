@@ -1,37 +1,43 @@
-Private Sub CommandButton22_Click()
-    Dim a As Integer
-    Dim objOutlook As Object
-    Dim objMail As Object
-    Dim rngTo As Range
-    Dim rngSubject As Range
-    Dim rngBody As Range
-    Dim rngAttach As Range
-
-    Set objOutlook = CreateObject("Outlook.Application")
-    Set objMail = objOutlook.CreateItem(0)
-
-    a = ActiveCell.Row
-
-    With ActiveSheet
-        Set rngTo = .Cells(a, "C")
-        Set rngSubject = .Cells(a, "E")
-        'Set rngBody = .Range("B3")
-        'Set rngAttach = .Range("B4")
-    End With
-
-    With objMail
-        .To = rngTo.Value
-        .Subject = rngSubject.Value
-        '.Body = rngBody.Value
-       '.Attachments.Add rngAttach.Value
-        .Display 'Instead of .Display, you can use .Send to send the email _
-                    or .Save to save a copy in the drafts folder
-    End With
-
-    Set objOutlook = Nothing
-    Set objMail = Nothing
-    Set rngTo = Nothing
-    Set rngSubject = Nothing
-    Set rngBody = Nothing
-    Set rngAttach = Nothing
+Sub SendMail()
+   Dim strTo As String
+   Dim strSubject As String
+   Dim strBody As String
+   Dim strCC As String
+   Dim i As Integer
+   
+For i = 1 To 2
+'populate variables
+   strTo = Cells(i, 1).Value
+   strCC = Cells(i, 2).Value
+   strSubject = "Please find finance file attached"
+   strBody = "Dear " & Cells(i, 3).Value
+'call the function to send the email
+   'If SendActiveWorkbook(strTo, strSubject, strCC, strBody) = True Then
+      'MsgBox "Email creation Success"
+   'Else
+      'MsgBox "Email creation failed!"
+   'End If
+Next i
 End Sub
+'***********************
+Function SendActiveWorkbook(strTo As String, strSubject As String, Optional strCC As String, Optional strBody As String) As Boolean
+   On Error Resume Next
+   Dim appOutlook As Object
+   Dim mItem As Object
+'create a new instance of Outlook
+   Set appOutlook = CreateObject("Outlook.Application")
+   Set mItem = appOutlook.CreateItem(0)
+   With mItem
+     .To = strTo
+     .CC = strCC
+     .Subject = strSubject
+     .Body = strBody
+     .Attachments.Add "C:\Users\anh.doduc\Desktop\Upload.txt"
+'use send to send immediately or display to show on the screen
+    .Display
+    .Send
+   End With
+'clean up objects
+  Set mItem = Nothing
+  Set appOutlook = Nothing
+End Function
