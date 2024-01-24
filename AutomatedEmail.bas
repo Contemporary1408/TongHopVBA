@@ -1,5 +1,5 @@
 Sub SendMail()
-'Tham khao:https://www.automateexcel.com/vba/send-emails-outlook/
+'thamkhao:https://www.automateexcel.com/vba/send-emails-outlook/
    Dim strTo As String
    Dim strSubject As String
    Dim strBody As String
@@ -13,7 +13,7 @@ For i = 1 To 2
    strSubject = "Please find finance file attached"
    strBody = "Dear " & Cells(i, 3).Value
 'call the function to send the email
-   'If SendActiveWorkbook(strTo, strSubject, strCC, strBody) = True Then
+   Call SendActiveWorkbook(strTo, strSubject, strCC, strBody)
       'MsgBox "Email creation Success"
    'Else
       'MsgBox "Email creation failed!"
