@@ -4,10 +4,6 @@ UserForm1.Show
 
 End Sub
 '************************
-Private Sub exob_Click()
-
-End Sub
-
 Private Sub UserForm_Initialize()
 Dim ws As Worksheet
 Set ws = ThisWorkbook.Sheets("Var")
@@ -22,6 +18,7 @@ Next i
    capob.Value = False
    exrt.Value = False
 End Sub
+'***********************
 Private Sub btnok_Click()
 On Error Resume Next
 Sheet1.Activate
