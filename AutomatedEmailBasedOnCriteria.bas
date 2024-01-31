@@ -20,7 +20,6 @@ Next i
 End Sub
 '***********************
 Private Sub btnok_Click()
-On Error Resume Next
 Sheet1.Activate
 If txtmon.Value = vbNullString Then
     MsgBox "Hay nhap du thong tin"
@@ -28,29 +27,23 @@ If txtmon.Value = vbNullString Then
 End If
 Cells(2, 2).Value = txtmon.Value
 Cells(2, 4).Value = txty.Value
+Cells(2, 5).Value = txtsbj.Value
+Cells(2, 7).Value = txtsender.Value
 Call LoopThroughFiles
 'populate variables
 Dim strTo As String
 Dim strSubject As String
 Dim strBody As String
 Dim strCC As String
-Dim AttExpOB As String
-Dim AttCapOB As String
-Dim AttExpRT As String
-Dim AttCapRT As String
-Dim PathAttExpOB As String
-Dim PathAttCapOB As String
-Dim PathAttExpRT As String
-Dim PathAttCapRT As String
 Dim DuongDanFolder As String
 Dim Dept As String
 Dim Dept1 As String
 DuongDanFolder = ThisWorkbook.Path
-Dim i As Integer
+Dim i As Long
 Dim k As Integer
 Dim Att As String
 Dim DirAtt As String
-    For i = 4 To 5
+For i = 4 To 5
         
 'populate variables
       strTo = ThisWorkbook.Worksheets("Email Information").Cells(i, 3).Value
@@ -83,13 +76,16 @@ Dim DirAtt As String
         End If
      Next k
 'use send to send immediately or display to show on the screen
+     If optdis.Value = True Then
      .Display
-     '.Send
+     Else
+     .Send
+     End If
     End With
 'clean up objects
     Set mItem = Nothing
     Set appOutlook = Nothing
-    Next i
+Next i
 End Sub
 '***********************
 Private Sub btnng_Click()
