@@ -97,17 +97,17 @@ Sub LoopThroughFiles()
 Dim oFSO As Object
 Dim oFolder As Object
 Dim oFile As Object
-Dim i As Integer
-i = 3
+Dim q As Integer
+q = 3
 Set oFSO = CreateObject("Scripting.FileSystemObject")
 
 Set oFolder = oFSO.GetFolder(ThisWorkbook.Path)
 
 For Each oFile In oFolder.Files
 
-    ThisWorkbook.Sheets("Email Information").Cells(i + 1, 17) = oFile.Name
+    ThisWorkbook.Sheets("Email Information").Cells(q + 1, 17) = oFile.Name
 
-    i = i + 1
+    q = q + 1
 
 Next oFile
 
