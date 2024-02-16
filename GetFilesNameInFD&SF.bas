@@ -3,11 +3,13 @@ Sub getfiles()
     Dim oFSO As Object
     Dim oFolder As Object
     Dim oFile As Object, sf
-    Dim i As Integer, colFolders As New Collection, ws As Worksheet
+    Dim i As Integer, k As Integer, colFolders As New Collection, ws As Worksheet
+    Dim FoldPath As String, Filename As String, newfoldpath As String
+    FoldPath = ThisWorkbook.Path
     i = 1
     Set ws = ActiveSheet
     Set oFSO = CreateObject("Scripting.FileSystemObject")
-    Set oFolder = oFSO.getfolder("\\10.118.29.7\BTMV-Data\4-ACCOUNTING\4.Budget\Automate\Final")
+    Set oFolder = oFSO.getfolder(FoldPath)
     
     colFolders.Add oFolder          'start with this folder
     
@@ -30,5 +32,19 @@ Sub getfiles()
             colFolders.Add sf
         Next sf
     Loop
+    Dim src As String, des As String
+    For k = 1 To 200
+    On Error Resume Next
+    newfoldpath = Cells(k, 6).Value
+    Filename = Cells(k, 2).Value
+    src = Cells(k, 1).Value & Application.PathSeparator & Filename
+    des = FoldPath & Application.PathSeparator & newfoldpath
+    If Not oFSO.FolderExists(des) Then
+        oFSO.createfolder (des)
+    End If
+    If Cells(k, 4).Value = "x" Then
+    oFSO.copyfile src, des & Application.PathSeparator & Filename
+    End If
+    Next k
 
 End Sub
