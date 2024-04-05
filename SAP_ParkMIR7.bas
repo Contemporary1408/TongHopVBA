@@ -20,11 +20,6 @@ session.findById("wnd[0]/usr/txtRSYST-BNAME").Text = Sheets("Execute").Cells(1, 
 session.findById("wnd[0]/usr/pwdRSYST-BCODE").Text = Sheets("Execute").Cells(2, "B").Value
 session.findById("wnd[0]").sendVKey 0
 session.SendCommand ("/nmir7")
-'MsgBox "Waiting..."
-'Set session = Nothing
-'connection.CloseSession ("ses[0]")
-'Set connection = Nothing
-'Set sap = Nothing
 session.findById("wnd[1]/usr/ctxtBKPF-BUKRS").Text = "1000"
 session.findById("wnd[1]/usr/ctxtBKPF-BUKRS").caretPosition = 4
 session.findById("wnd[1]").sendVKey 0
@@ -91,4 +86,3 @@ session.findById("wnd[0]/tbar[0]/btn[11]").press 'NHAN SAVE - CAN THAN KHI TEST!
 'Get so park tu thong bao:
 Sheets("Execute").Cells(i, "Q").Value = session.findById("wnd[0]/sbar").Text
 End Sub
-
