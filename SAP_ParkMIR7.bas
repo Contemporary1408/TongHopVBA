@@ -82,7 +82,13 @@ session.findById("wnd[0]/usr/btnRM08M-HEADER_COLLAPSE").press
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_PAY").Select
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_PAY/ssubHEADER_SCREEN:SAPLFDCB:0020/ctxtINVFO-ZFBDT").Text = Sheets("Execute").Cells(i, "O").Value
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_PAY/ssubHEADER_SCREEN:SAPLFDCB:0020/ctxtINVFO-ZLSCH").Text = Sheets("Execute").Cells(i, "P").Value
-session.findById("wnd[0]/tbar[0]/btn[11]").press 'NHAN SAVE - CAN THAN KHI TEST!
-'Get so park tu thong bao:
-Sheets("Execute").Cells(i, "Q").Value = session.findById("wnd[0]/sbar").Text
+'Kiem tra balance truoc khi Park
+If session.findById("wnd[0]/usr/txtRM08M-DIFFERENZ").Text = 0 Then
+MsgBox "Chung tu OK"
+session.findById("wnd[0]/tbar[0]/btn[11]").press 'Nhan SAVE de park
+Sheets("Execute").Cells(i, "Q").Value = session.findById("wnd[0]/sbar").Text 'Get so park tu thong bao
+Else
+'MsgBox "Kiem tra lai"
+session.SendCommand ("/nmir7")
+End If
 End Sub
