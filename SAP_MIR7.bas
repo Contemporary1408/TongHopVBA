@@ -31,7 +31,7 @@ session.findById("wnd[1]").sendVKey 0
 session.findById("wnd[0]").maximize
 session.findById("wnd[0]/usr/cmbRM08M-VORGANG").Key = "1" 'Chon loai chung tu: 1=Invoice
 'Tab Basic data
-i = 8
+i = 8 'SUA LAI NEU MUON CHAY VONG LAP CHO NHIEU HOA DON
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BLDAT").Text = Sheets("Execute").Cells(i, "D").Value
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BUDAT").Text = Sheets("Execute").Cells(i, "F").Value
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BUDAT").SetFocus
