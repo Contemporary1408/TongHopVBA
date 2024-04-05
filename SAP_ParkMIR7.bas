@@ -26,7 +26,8 @@ session.findById("wnd[1]").sendVKey 0
 session.findById("wnd[0]").maximize
 session.findById("wnd[0]/usr/cmbRM08M-VORGANG").Key = "1" 'Chon loai chung tu: 1=Invoice
 'Tab Basic data
-i = 8 'SUA LAI NEU MUON CHAY VONG LAP CHO NHIEU HOA DON
+'For i = 8 to Range("A7").End(xlDown).Offset(1, 0).Row
+i = 8
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BLDAT").Text = Sheets("Execute").Cells(i, "D").Value
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BUDAT").Text = Sheets("Execute").Cells(i, "F").Value
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHEADER_TOTAL/ssubHEADER_SCREEN:SAPLFDCB:0010/ctxtINVFO-BUDAT").SetFocus
@@ -47,23 +48,30 @@ session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHE
 'Nhap PO no & PO item:
 session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/subITEMS:SAPLMR1M:6010/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subREFERENZBELEG:SAPLMR1M:6211/btnRM08M-XMSEL").press
 q = Sheets("Execute").Cells(i, "B").Value
-u = 0
-Do Until q > Sheets("Execute").Cells(i, "C").Value
+q1 = Sheets("Execute").Cells(i, "C").Value
+U = 0
+Do Until q > q1
 x = 0
-Do Until x > 7
-session.findById("wnd[1]/usr/subMSEL:SAPLMR1M:6221/tblSAPLMR1MTC_MSEL_BEST/ctxtRM08M-EBELN[0," & CStr(x) & "]").Text = Sheets("LIV").Cells(q, "U").Value
-session.findById("wnd[1]/usr/subMSEL:SAPLMR1M:6221/tblSAPLMR1MTC_MSEL_BEST/txtRM08M-EBELP[1," & CStr(x) & "]").Text = Sheets("LIV").Cells(q, "AA").Value
-x = x + 1
-q = q + 1
-Loop
-u = u + 8
-session.findById("wnd[1]/usr/subMSEL:SAPLMR1M:6221/tblSAPLMR1MTC_MSEL_BEST").verticalScrollbar.Position = u
+Dim RngPO1 As Range
+Set RngPO1 = Range(Cells(q, "U"), Cells(q1, "U"))
+Dim RngPOitem As Range
+    For Each RngPOitem In RngPO1
+    session.findById("wnd[1]/usr/subMSEL:SAPLMR1M:6221/tblSAPLMR1MTC_MSEL_BEST/ctxtRM08M-EBELN[0," & CStr(x) & "]").Text = Sheets("LIV").Cells(q, "U").Value
+    session.findById("wnd[1]/usr/subMSEL:SAPLMR1M:6221/tblSAPLMR1MTC_MSEL_BEST/txtRM08M-EBELP[1," & CStr(x) & "]").Text = Sheets("LIV").Cells(q, "AA").Value
+    x = x + 1
+    q = q + 1
+    If x > 7 Then
+    U = U + 8
+    session.findById("wnd[1]/usr/subMSEL:SAPLMR1M:6221/tblSAPLMR1MTC_MSEL_BEST").verticalScrollbar.Position = U
+    x = 0
+    End If
+    Next RngPOitem
 Loop
 session.findById("wnd[1]/tbar[0]/btn[8]").press
 'Nhap amt & qty cho PO data:
 session.findById("wnd[0]/usr/btnRM08M-HEADER_COLLAPSE").press
 q = Sheets("Execute").Cells(i, "B").Value
-u = 0
+U = 0
 Do Until q > Sheets("Execute").Cells(i, "C").Value
 On Error Resume Next
 y = 0
@@ -74,8 +82,8 @@ session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6006/subITEMS:SAPLMR1M
 y = y + 1
 q = q + 1
 Loop
-u = u + 9
-session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6006/subITEMS:SAPLMR1M:6010/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/tblSAPLMR1MTC_MR1M").verticalScrollbar.Position = u
+U = U + 9
+session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6006/subITEMS:SAPLMR1M:6010/tabsITEMTAB/tabpITEMS_PO/ssubTABS:SAPLMR1M:6020/subITEM:SAPLMR1M:6310/tblSAPLMR1MTC_MR1M").verticalScrollbar.Position = U
 Loop
 'Exit PO data chuyen sang tab Payment & Save:
 session.findById("wnd[0]/usr/btnRM08M-HEADER_COLLAPSE").press
@@ -85,10 +93,10 @@ session.findById("wnd[0]/usr/subHEADER_AND_ITEMS:SAPLMR1M:6005/tabsHEADER/tabpHE
 'Kiem tra balance truoc khi Park
 If session.findById("wnd[0]/usr/txtRM08M-DIFFERENZ").Text = 0 Then
 MsgBox "Chung tu OK"
-session.findById("wnd[0]/tbar[0]/btn[11]").press 'Nhan SAVE de park
+'session.findById("wnd[0]/tbar[0]/btn[11]").press 'Nhan SAVE de park
 Sheets("Execute").Cells(i, "Q").Value = session.findById("wnd[0]/sbar").Text 'Get so park tu thong bao
 Else
-'MsgBox "Kiem tra lai"
+Sheets("Execute").Cells(i, "Q").Value = "Kiem tra lai"
 session.SendCommand ("/nmir7")
 End If
 End Sub
