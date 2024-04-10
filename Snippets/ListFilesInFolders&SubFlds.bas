@@ -21,12 +21,12 @@ For Each oFile In oFolder.Files
                 ws.Cells(i + 1, 5) = Replace(oFile.Name, " (final price).txt", "") 'them doan nay vao de lay ten
                 i = i + 1
             End If
-        Next oFile
+Next oFile
 'Add any subfolders to the collection for processing
         For Each sf In oFolder.subfolders
             colFolders.Add sf
         Next sf
-    Loop
+        Loop
 '********************************
 'Tao folder moi de copy file sang:
     Dim src As String, des As String
