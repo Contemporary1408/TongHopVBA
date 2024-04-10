@@ -12,7 +12,7 @@ Dim fso As Object, j As Long, folder, SubFolders, SubFolder
         MsgBox "Folder Not Selected"
     Exit Sub
     End If
-    Workbooks.Add
+    'Workbooks.Add 'Them workbook, cai nay co ve khong can thiet lam
     Cells(1, 1).Value = fldpath
     Cells(2, 1).Value = "Path"
     Cells(2, 2).Value = "Dir"
