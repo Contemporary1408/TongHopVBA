@@ -15,7 +15,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-' frmWMDatePicker ©2021 by wolff68@yahoo.com Version 1.1
+' frmWMDatePicker Â©2021 by wolff68@yahoo.com Version 1.1
 ' Lightweight date picker control within just one form to add to your project. No extra class module or addin needed!
 ' Simple code that can be understood even by novices.
 
@@ -282,7 +282,7 @@ End Sub
 Private Sub lbInfo_Click()
 Dim res As Integer
  res = MsgBox("WMDatePicker" & vbLf _
-            & "©2021 Wolfgang.Marder@gmail.com" & vbLf & vbLf _
+            & "Â©2021 Wolfgang.Marder@gmail.com" & vbLf & vbLf _
             & "Keyboard controls:" & vbLf _
             & "<POS1>            : Today" & vbLf _
             & "Arrow keys        : Move selection in grid" & vbLf _
