@@ -38,7 +38,7 @@ q = Sheets("Data").Cells(i, "B").Value2
 u = 0
 x = 0
     Do Until q > Sheets("Data").Cells(i, "C").Value2 - 1
-        Do Until x > 9 'Toa do line trong SAP max = 13
+        Do Until x > 9 'Toa do line trong SAP max = 9(Trang dau max 10 lines nhung trang sau 9 lines)
         session.findById("wnd[0]/usr/ssubSUB_MAIN_CARRIER:SAPLMIGO:0004/subSUB_ITEMLIST:SAPLMIGO:0200/tblSAPLMIGOTV_GOITEM/ctxtGOITEM-MAKTX[2," & CStr(x) & "]").Text = Sheets("Data").Cells(q, "J").Value
         session.findById("wnd[0]/usr/ssubSUB_MAIN_CARRIER:SAPLMIGO:0004/subSUB_ITEMLIST:SAPLMIGO:0200/tblSAPLMIGOTV_GOITEM/txtGOITEM-ERFMG[4," & CStr(x) & "]").Text = Sheets("Data").Cells(q, "K").Value
         If Sheets("Data").Cells(q, "K").Value <> vbNullString Then
