@@ -1,1 +1,1 @@
-# Mã nguồn cho macro chạy park billings tự động trên SAP bằng Tcode VF01
+## Mã nguồn cho macro chạy Good Receipt tự động trên SAP bằng Tcode MIGO GR
