@@ -66,6 +66,8 @@ End If
 session.SendCommand ("/oZGM07")
 session.findById("wnd[0]").maximize
 End Sub
+
+'#############################################
 Function IsProcessRunning(process As String)
 Dim objList As Object
 
