@@ -4,6 +4,11 @@ Private Sub UserForm_Initialize()
    txtname.Value = ""
    txtdept.Value = ""
  'Tham khao: https://www.tutorialspoint.com/vba/vba_userforms.htm  
+Set ws = ThisWorkbook.Sheets("ExRate&Pmt")
+Set Rng = ws.Range("I2:I7")
+For i = 1 To Rng.Rows.Count 'drop down list
+UserForm1.txtdoc.AddItem (Rng.Cells(i, 1))
+Next i
 End Sub
 '***************************
 Private Sub btnsubmit_Click()
