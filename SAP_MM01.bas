@@ -26,7 +26,7 @@ For i = 2 To lrow
 session.findById("wnd[0]/usr/ctxtRMMG1-MATNR").Text = Sheets(1).Cells(i, "C").Value
 session.findById("wnd[0]/usr/ctxtRMMG1-MATNR").caretPosition = 10
 session.findById("wnd[0]").sendVKey (0)
-If session.findById("wnd[0]/usr/cmbRMMG1-MTART").Key <> Sheets(1).Cells(i, "G").Value Then
+If session.findById("wnd[0]/usr/cmbRMMG1-MTART").Key <> Sheets(1).Cells(i, "G").Value Then 'Check xem mã khi tạo đã phân loại đúng chưa (Z400, Z700,...)
     MsgBox ("Loai material chua khop voi dang ky")
     Exit For
 End If
@@ -36,6 +36,7 @@ session.findById("wnd[1]/tbar[0]/btn[0]").press
 session.findById("wnd[1]/usr/ctxtRMMG1-WERKS").Text = "1000"
 session.findById("wnd[1]/usr/ctxtRMMG1-WERKS").caretPosition = 4
 session.findById("wnd[1]/tbar[0]/btn[0]").press
+'Kiểm tra nếu mã vừa tạo input sai tên hoặc unit thì skip và báo lỗi vào 1 cell trong Excel:
 If session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP24/ssubTABFRA1:SAPLMGMM:2000/subSUB1:SAPLMGD1:1008/txtMAKT-MAKTX").Text = Sheets(1).Cells(i, "E").Value And session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP24/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB1:SAPLMGD1:2801/ctxtMARA-MEINS").Text = Sheets(1).Cells(i, "H").Value Then
     session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP24/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB2:SAPLMGD1:2802/ctxtMBEW-BKLAS").Text = Sheets(1).Cells(i, "D").Value
     session.findById("wnd[0]/usr/tabsTABSPR1/tabpSP24/ssubTABFRA1:SAPLMGMM:2000/subSUB2:SAPLMGD1:2800/subSUB2:SAPLMGD1:2802/ctxtMBEW-VPRSV").Text = "V"
