@@ -4,3 +4,4 @@ With Sheets("Sheet1")
     batStartRow = .Range("A:A").Find(what:="bats", after:=.Range("A1")).Row
     batEndRow = .Range("A:A").Find(what:="bats", after:=.Range("A1"), searchdirection:=xlPrevious).Row
 End With
+'You may need to add the LookIn:=xlValues qualifier too, depending on the info/data being searched.
