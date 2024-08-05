@@ -6,3 +6,4 @@
 4. Hướng dẫn scrape data website bằng VBA: https://codingislove.com/weather-app-in-excel-vba/
 5. Scrape data từ XML không cần thư viện, JSON thì cần thư viện từ https://github.com/VBA-tools/VBA-JSON/blob/master/JsonConverter.bas
 6. Get value từ 1 cell trong Excel vào Advanced Editor trong Power Query: Vào Formula > Define name cho cell đó (Ví dụ:"Cookie") sau đó sửa giá trị cần lấy vào Advanced Editor như sau: Table.ToList(Excel.CurrentWorkbook(){[Name = "Cookie"]}[Content]){0}
+7. Reading text in SAP table: https://stackoverflow.com/questions/68685911/reading-text-in-table-control
