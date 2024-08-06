@@ -17,3 +17,16 @@ u = 0
 session.findById("wnd[1]/tbar[0]/btn[8]").press
 '*************************
 'Insert snippet code below
+
+'Shorten version:
+Do Until i > lrow
+    Set tbl = session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE")
+    Do Until x > 7
+        tbl.GetCell(x, 1).Text = Sheets(1).Cells(i, "H").Value
+        x = x + 1
+        i = i + 1
+    Loop
+    u = u + 8
+    x = 1
+    tbl.verticalScrollbar.Position = u
+Loop
