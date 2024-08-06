@@ -18,7 +18,12 @@ session.findById("wnd[1]/tbar[0]/btn[8]").press
 '*************************
 'Insert snippet code below
 
+
 'Shorten version:
+Dim i As Integer, u As Integer, x As Integer
+i = 1
+u = 0
+x = 0
 Do Until i > lrow
     Set tbl = session.findById("wnd[1]/usr/tabsTAB_STRIP/tabpSIVA/ssubSCREEN_HEADER:SAPLALDB:3010/tblSAPLALDBSINGLE")
     Do Until x > 7
