@@ -44,9 +44,9 @@ strOldContent = Input$(LOF(intFileNumber), intFileNumber)
 Close intFileNumber
 ' Replace the string
 strNewContent = Replace(strOldContent, strSearchString, strReplaceString)
-strNewContent = Replace(strNewContent, Chr(34), vbNullString)
-strNewContent = Replace(strNewContent, Chr(10), vbNullString)
-strNewContent = Replace(strNewContent, Chr(13), vbNullString)
+strNewContent = Replace(strNewContent, Chr(34), vbNullString) 'This returns the double-quote character (").
+strNewContent = Replace(strNewContent, Chr(10), vbNullString) 'This returns the line feed character (LF), which is used to move the cursor to the next line.
+strNewContent = Replace(strNewContent, Chr(13), vbNullString) 'This returns the carriage return character (CR), which moves the cursor to the beginning of the line.
 ' Open the text file for writing
 Open strFilePath For Output As intFileNumber
 ' Write the new content to the file
